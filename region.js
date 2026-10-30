@@ -4,7 +4,7 @@
   document.head.appendChild(style);
 
   function regionPage() {
-    return `<section class="page"><div class="page-heading"><div class="eyebrow">06 · Region</div><h1>地域</h1><p>从地域进入剧种。中国展开三个剧种入口，日本与泰国直达对应传统。</p></div><div class="content-wrap"><div class="art-grid"><article class="art-card"><h3>中国　＋</h3><p>点击展开：昆曲、越剧、京剧。</p><button class="watch region-toggle" type="button">展开中国剧种</button><div class="china-options" hidden><a class="watch" href="#kunqu">昆曲　→</a><a class="watch" href="#yueju">越剧　→</a><a class="watch" href="#jingju">京剧　→</a></div></article><a class="art-card region-card" href="#placeholder-kabuki"><h3>日本　→</h3><p>进入日本歌舞伎具体介绍页面。</p></a><a class="art-card region-card" href="#placeholder-khon"><h3>泰国　→</h3><p>进入泰国孔剧具体介绍页面。</p></a></div></div></section>`;
+    return `<section class="page"><div class="page-heading"><div class="eyebrow">06 · Region</div><h1>地域</h1><p>从地域进入剧种。中国展开三个剧种入口，日本与泰国直达对应传统。</p></div><div class="content-wrap"><div class="art-grid"><article class="art-card"><h3>中国　＋</h3><p>点击展开：昆曲、越剧、京剧。</p><button class="watch region-toggle" type="button">展开中国剧种</button><div class="china-options" hidden><a class="watch" href="#kunqu">昆曲　→</a><a class="watch" href="#yueju">越剧　→</a><a class="watch" href="#jingju">京剧　→</a></div></article><a class="art-card region-card" href="#placeholder-kabuki"><h3>日本　→</h3><p>进入日本歌舞伎具体介绍页面。</p></a><a class="art-card region-card" href="#khon"><h3>泰国　→</h3><p>进入泰国孔剧具体介绍页面。</p></a></div></div></section>`;
   }
 
   function addHomeLinks() {
