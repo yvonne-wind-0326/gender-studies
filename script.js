@@ -1,13 +1,13 @@
 const people=[
- {name:'韩世昌',years:'1898—1977',role:'旦角｜北方昆曲男旦',img:'assets/kunqu/han-shichang.jpeg',mentor:'早年接受传统戏班训练，后成为北方昆曲的重要代表，曾任北方昆曲剧院院长。',works:'《牡丹亭·游园惊梦》《思凡》《春香闹学》',style:'唱腔清丽，身段灵活，擅长表现女性人物细腻的情感。'},
- {name:'朱传茗',years:'1909—1974',role:'旦角',img:'assets/kunqu/zhu-chuanming.jpeg',mentor:'早年随父亲朱鸣园学艺，后进入苏州昆剧传习所，接受传统旦行训练。',works:'《牡丹亭·游园》《白蛇传·断桥》',style:'唱腔柔润，身段细腻，扮相端庄，注重人物情感与神态。'},
- {name:'张传芳',years:'1911—1983',role:'六旦、五旦',img:'assets/kunqu/zhang-chuanfang.jpeg',mentor:'苏州昆剧传习所“传字辈”演员，曾受尤彩云、施桂林等教师指导，后在上海市戏曲学校任教。',works:'《思凡》《藏舟》《琴挑》',style:'表演活泼灵动，擅长表现年轻女性人物的性格与情绪。'},
- {name:'沈传芷',years:'1906—1994',role:'正旦｜早年学习小生',img:'assets/kunqu/shen-chuanzhi.jpeg',mentor:'出身昆曲世家，受父亲沈月泉指导，后进入苏州昆剧传习所，长期从事昆曲教学。',works:'《琵琶记·剪发》《烂柯山·痴梦》',style:'唱腔细腻，注重人物内心情感，擅长表现成熟女性角色。'},
- {name:'董飞',years:'1983年生',role:'当代男旦',img:'assets/kunqu/dong-fei.jpeg',mentor:'早年学习汉剧，后拜京剧艺术家李毓芳为师，并向张继青、顾卫英等昆曲艺术家学习。',works:'《怜香伴》《牡丹亭》',style:'融合传统男旦技艺与当代舞台创作，致力于男旦艺术的传承与复兴。'},
- {name:'岳美缇',years:'1941年生',role:'小生｜擅长巾生',img:'assets/kunqu/yue-meiti.jpeg',mentor:'上海昆剧团演员，毕业于上海市戏曲学校，受俞振飞、沈传芷等艺术家指导。',works:'《牡丹亭》《玉簪记》《司马相如》',style:'儒雅潇洒，唱腔清丽，擅长塑造温文尔雅的男性书生形象。'},
- {name:'石小梅',years:'1949年生',role:'小生｜巾生、小冠生',img:'assets/kunqu/shi-xiaomei.jpeg',mentor:'江苏省昆剧院演员，1982年正式拜俞振飞、沈传芷、周传瑛为师。',works:'《白罗衫》《桃花扇》《牡丹亭》',style:'唱腔清亮，表演含蓄细腻，擅长塑造情感复杂的男性人物。'},
- {name:'翁佳慧',years:'',role:'小生',img:'assets/kunqu/weng-jiahui.jpeg',mentor:'北方昆曲剧院专业演员，师承岳美缇、蔡正仁。',works:'《红楼梦》《牧羊记·望乡》《赵氏孤儿》',style:'注重男性人物的心理与气质塑造，融合传统小生程式与当代舞台表达。'},
- {name:'胡维露',years:'',role:'小生｜擅长巾生',img:'assets/kunqu/hu-weilu.jpeg',mentor:'上海昆剧团专业演员，师承岳美缇。',works:'《牡丹亭》等传统昆曲剧目',style:'注重书生气质、身段和声音的塑造，延续传统女小生表演技艺。'}
+ {name:'韩世昌',years:'1898—1977',role:'旦角｜北方昆曲男旦',img:'han-shichang.jpeg',mentor:'早年接受传统戏班训练，后成为北方昆曲的重要代表，曾任北方昆曲剧院院长。',works:'《牡丹亭·游园惊梦》《思凡》《春香闹学》',style:'唱腔清丽，身段灵活，擅长表现女性人物细腻的情感。'},
+ {name:'朱传茗',years:'1909—1974',role:'旦角',img:'zhu-chuanming.jpeg',mentor:'早年随父亲朱鸣园学艺，后进入苏州昆剧传习所，接受传统旦行训练。',works:'《牡丹亭·游园》《白蛇传·断桥》',style:'唱腔柔润，身段细腻，扮相端庄，注重人物情感与神态。'},
+ {name:'张传芳',years:'1911—1983',role:'六旦、五旦',img:'zhang-chuanfang.jpeg',mentor:'苏州昆剧传习所“传字辈”演员，曾受尤彩云、施桂林等教师指导，后在上海市戏曲学校任教。',works:'《思凡》《藏舟》《琴挑》',style:'表演活泼灵动，擅长表现年轻女性人物的性格与情绪。'},
+ {name:'沈传芷',years:'1906—1994',role:'正旦｜早年学习小生',img:'shen-chuanzhi.jpeg',mentor:'出身昆曲世家，受父亲沈月泉指导，后进入苏州昆剧传习所，长期从事昆曲教学。',works:'《琵琶记·剪发》《烂柯山·痴梦》',style:'唱腔细腻，注重人物内心情感，擅长表现成熟女性角色。'},
+ {name:'董飞',years:'1983年生',role:'当代男旦',img:'dong-fei.jpeg',mentor:'早年学习汉剧，后拜京剧艺术家李毓芳为师，并向张继青、顾卫英等昆曲艺术家学习。',works:'《怜香伴》《牡丹亭》',style:'融合传统男旦技艺与当代舞台创作，致力于男旦艺术的传承与复兴。'},
+ {name:'岳美缇',years:'1941年生',role:'小生｜擅长巾生',img:'yue-meiti.jpeg',mentor:'上海昆剧团演员，毕业于上海市戏曲学校，受俞振飞、沈传芷等艺术家指导。',works:'《牡丹亭》《玉簪记》《司马相如》',style:'儒雅潇洒，唱腔清丽，擅长塑造温文尔雅的男性书生形象。'},
+ {name:'石小梅',years:'1949年生',role:'小生｜巾生、小冠生',img:'shi-xiaomei.jpeg',mentor:'江苏省昆剧院演员，1982年正式拜俞振飞、沈传芷、周传瑛为师。',works:'《白罗衫》《桃花扇》《牡丹亭》',style:'唱腔清亮，表演含蓄细腻，擅长塑造情感复杂的男性人物。'},
+ {name:'翁佳慧',years:'',role:'小生',img:'weng-jiahui.jpeg',mentor:'北方昆曲剧院专业演员，师承岳美缇、蔡正仁。',works:'《红楼梦》《牧羊记·望乡》《赵氏孤儿》',style:'注重男性人物的心理与气质塑造，融合传统小生程式与当代舞台表达。'},
+ {name:'胡维露',years:'',role:'小生｜擅长巾生',img:'hu-weilu.jpeg',mentor:'上海昆剧团专业演员，师承岳美缇。',works:'《牡丹亭》等传统昆曲剧目',style:'注重书生气质、身段和声音的塑造，延续传统女小生表演技艺。'}
 ];
 const plays=[
  ['《思凡》','小尼姑色空不愿忍受寺庙中的清苦生活，渴望自由与世俗爱情，最终决定离开寺院。','色空（旦角）','韩世昌（男旦）','https://www.bilibili.com/video/BV12W41177Ua/'],
@@ -31,3 +31,4 @@ document.querySelector('#personDialog').addEventListener('click',e=>{if(e.target
 document.querySelector('#searchButton').addEventListener('click',()=>{let d=document.querySelector('.search-drawer');if(d){d.remove();return}d=document.createElement('div');d.className='search-drawer';d.innerHTML='<input id="searchInput" placeholder="搜索剧种、演员、角色或关键词…" autofocus><div class="search-results" id="searchResults"></div>';document.body.append(d);const input=d.querySelector('input'),out=d.querySelector('#searchResults');input.addEventListener('input',()=>{const q=input.value.trim().toLowerCase();const found=q?people.filter(p=>(p.name+p.role+p.works+p.style).toLowerCase().includes(q)):[];out.innerHTML=found.length?found.map(p=>`<a href="#kunqu">${p.name} · ${p.role}</a>`).join(''):q?'未找到匹配条目':'输入关键词开始检索';})});
 document.querySelector('#menuButton').addEventListener('click',()=>{let d=document.querySelector('.menu-drawer');if(d){d.remove();return}d=document.createElement('div');d.className='menu-drawer';d.innerHTML='<a href="#about">关于我们</a><a href="#guide">入门指南</a><a href="#compare">比较</a><a href="#system">表演体系</a>';document.body.append(d)});
 window.addEventListener('hashchange',render);render();
+
