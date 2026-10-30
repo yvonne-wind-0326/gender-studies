@@ -8,8 +8,9 @@
   }
 
   function addHomeLinks() {
-    if (document.querySelector('.region-links')) return;
-    document.querySelector('.top-nav')?.insertAdjacentHTML('beforeend', '<a href="#region">地域</a>');
+    const nav = document.querySelector('.top-nav');
+    if (nav && !nav.querySelector('a[href="#region"]')) nav.insertAdjacentHTML('beforeend', '<a href="#region">地域</a>');
+    if (location.hash.slice(1) !== 'home' || document.querySelector('.region-links')) return;
     const section = document.createElement('section');
     section.className = 'home-sections region-links';
     section.innerHTML = '<a class="notice-panel" href="#compare"><span class="panel-label">COMPARE</span><h2>比较　→</h2><p>按角色、技法、训练与历史语境继续比较不同传统。</p></a><a class="notice-panel" href="#system"><span class="panel-label">PERFORMANCE SYSTEM</span><h2>表演体系　→</h2><p>后续补充不同剧种的角色分类与训练结构。</p></a><a class="notice-panel" href="#region"><span class="panel-label">REGION</span><h2>地域　→</h2><p>从中国、日本和泰国进入对应的剧种介绍页面。</p></a>';
