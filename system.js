@@ -38,7 +38,8 @@
   }
   function linkifyVideos(text, doc) {
     const map = videos[doc.id] || {};
-    return escapeHtml(text).replace(/\bV\d{2}\b/g, id => map[id] ? `<a class="system-video-ref" href="${escapeHtml(map[id])}" target="_blank" rel="noopener">${id}</a>` : id);
+    let linked = escapeHtml(text).replace(/https?:\/\/[^\s<]+/g, url => `<a class="system-video-ref system-source-link" href="${url}" target="_blank" rel="noopener">${url}</a>`);
+    return linked.replace(/\bV\d{2}\b/g, id => map[id] ? `<a class="system-video-ref" href="${escapeHtml(map[id])}" target="_blank" rel="noopener">${id}</a>` : id);
   }
   function videoArchive(doc) {
     const map = videos[doc.id] || {};
@@ -61,7 +62,7 @@
       const caption = item.text.length < 240 && (/^图\d/.test(item.text) || /摄影版权|图片署名|来源/.test(item.text)) ? ' system-caption' : '';
       return `${image}<p class="${caption.trim()}">${linkedText}</p>`;
     }).join('');
-    return `<section class="page system-page"><div class="page-heading"><div class="eyebrow">05 · Performance System</div><h1>${doc.title}</h1><p>完整表演体系文档 · 原文段落与图片按文件顺序呈现</p><a class="system-back" href="#system">← 返回表演体系</a></div><article class="system-article">${videoArchive(doc)}${body}</article></section>`;
+    return `<section class="page system-page"><div class="page-heading"><div class="eyebrow">05 · Performance System</div><h1>${doc.title}</h1><p>完整表演体系文档 · 原文段落与图片按文件顺序呈现</p><a class="system-back" href="#system">← 返回表演体系</a></div><article class="system-article">${body}</article></section>`;
   }
   function render() {
     addStyles();
