@@ -37,6 +37,11 @@ function syncLanguageButton(){
 function toggleLanguage(){
   const language=localStorage.getItem('stageGenderLanguage')||'zh';
   const next=language==='en'?'zh':'en';
+  if(next==='en'&&typeof window.google==='undefined'){
+    const source=location.origin+location.pathname+location.search+location.hash;
+    location.href='https://translate.google.com/translate?sl=zh-CN&tl=en&u='+encodeURIComponent(source);
+    return;
+  }
   localStorage.setItem('stageGenderLanguage',next);
   setTranslationCookie(next);
   location.reload();
