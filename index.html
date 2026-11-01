@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>#google_translate_element{position:absolute;left:-10000px;top:-10000px;width:1px;height:1px;overflow:hidden}body{top:0!important}.skiptranslate iframe{display:none!important}</style>
   </head>
   <body>
     <header class="site-header">
@@ -16,12 +17,13 @@
       <nav class="top-nav" aria-label="主导航">
         <a href="#about">关于我们</a><a href="#guide">入门指南</a><a href="#compare">比较</a><a href="#system">表演体系</a>
       </nav>
-      <div class="header-tools"><button class="lang">中 / EN</button><button class="round" id="searchButton" aria-label="打开搜索">⌕</button><button class="round" id="menuButton" aria-label="打开菜单">☰</button></div>
+      <div class="header-tools"><button class="lang" id="languageButton" type="button">中 / EN</button><button class="round" id="searchButton" aria-label="打开搜索">⌕</button><button class="round" id="menuButton" aria-label="打开菜单">☰</button></div>
     </header>
 
     <main id="app"></main>
     <footer class="site-footer"><div class="footer-brand">STAGE GENDER</div><div>亚洲跨性别角色表演传统数字档案</div><div class="footer-links"><a href="mailto:chenzhanghan11@gmail.com">合作与纠错</a><span>© 2026 Stage Gender</span></div></footer>
     <dialog id="personDialog"><button class="dialog-close" aria-label="关闭">×</button><div id="dialogContent"></div></dialog>
+    <div id="google_translate_element" aria-hidden="true"></div>
     <script src="guide-data.js?v=202610311730"></script>
     <script src="script.js?v=202610311800"></script>
     <script src="region.js?v=202610311001"></script>
@@ -33,5 +35,11 @@
     <script src="system-data.js?v=202610311300"></script>
     <script src="system-videos.js?v=202610311430"></script>
     <script src="system.js?v=202610311530"></script>
+    <script>
+      function googleTranslateElementInit(){
+        new google.translate.TranslateElement({pageLanguage:'zh-CN',includedLanguages:'en,zh-CN',autoDisplay:false},'google_translate_element');
+      }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
 </html>
