@@ -26,6 +26,7 @@ function kabuki(){
   kabukiStyles();const doc=window.kabukiDocument||{paragraphs:[],people:[]};let inPeople=false,inInstitutions=false;let body='';
   (doc.paragraphs||[]).forEach(item=>{
     const t=item.text||'';const style=item.style||'';const image=kabukiRenderImage(item);
+    if(t.startsWith('3. 剧种专题页')||t.startsWith('主题：'))return;
     if(t.startsWith('D. 代表演员与传承')){inPeople=true;body+=`<section class="section-block kabuki-people-block"><h2>D　代表演员与传承</h2><p class="kabuki-people-intro">代表人物仅显示姓名与对应图片，点击人物卡片查看完整介绍。</p>${kabukiPersonMarkup(doc)}</section>`;return}
     if(inPeople&&t.startsWith('三、传承机构群体')){inPeople=false;inInstitutions=true;body+=`<section class="section-block"><h3>${kabukiLinks(t)}</h3>`;return}
     if(inPeople)return;
