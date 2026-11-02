@@ -13,7 +13,7 @@
   function slug(doc) { return `compare-${doc.id}`; }
   function wheel() {
     const nodes = docs.map((doc, i) => `<a class="compare-node" href="#${slug(doc)}" style="--angle:${i * 36}deg;background:${colors[i]}" aria-label="打开${doc.title}"><span><b>${doc.title}</b><small>打开比较文档 ↗</small></span></a>`).join('');
-    return `<section class="page compare-page"><div class="page-heading"><div class="eyebrow">04 · Compare</div><h1>比较</h1><p>选择一组剧种，进入完整的比较档案。轮盘中的十个标题对应文件夹内的十份 Word 文档，正文、来源索引与图片均按原文顺序保留。</p></div><div class="compare-wheel-wrap"><div class="compare-wheel"><div class="compare-center">比较<small>10 ARCHIVES</small></div>${nodes}</div></div></section>`;
+    return `<section class="page compare-page"><div class="page-heading"><div class="eyebrow">04 · Compare</div><h1>比较</h1></div><div class="compare-wheel-wrap"><div class="compare-wheel"><div class="compare-center">比较<small>10 ARCHIVES</small></div>${nodes}</div></div></section>`;
   }
 
   function isHeading(text, index) {
