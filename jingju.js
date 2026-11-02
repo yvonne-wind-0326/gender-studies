@@ -32,6 +32,6 @@
   function bind() {
     document.querySelectorAll('[data-jingju-person]').forEach(card => card.addEventListener('click', () => { const p=people[Number(card.dataset.jingjuPerson)]; document.querySelector('#dialogContent').innerHTML=`<div class="dialog-profile"><img src="${p[3]}" alt="${p[0]}"/><div><h2>${p[0]}</h2><div class="meta">${p[1]}　${p[2]}</div><p><b>师承与院团：</b>${p[4]}</p><p><b>代表作品：</b>${p[5]}</p><p><b>表演特点：</b>${p[6]}</p></div></div>`; document.querySelector('#personDialog').showModal(); }));
   }
-  function render() { if (location.hash.slice(1) !== 'jingju') return; css(); document.querySelector('#app').innerHTML=page(); window.scrollTo(0,0); bind(); }
+  function render() { if (location.hash.slice(1) !== 'jingju') return; css(); document.querySelector('#app').innerHTML=page(); const last=document.querySelector('#app .content-wrap>section:last-child'); if(last)last.remove(); window.scrollTo(0,0); bind(); }
   window.addEventListener('hashchange', render); render();
 })();
