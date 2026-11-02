@@ -34,9 +34,17 @@ function syncLanguageButton(){
   document.documentElement.lang=language==='en'?'en':'zh-CN';
   if(languageButton)languageButton.textContent=language==='en'?'EN / 中':'中 / EN';
 }
+function restoreLanguageRoute(){
+  const saved=sessionStorage.getItem('stageGenderLanguageRoute');
+  if(saved&&(!location.hash||location.hash==='#home')){
+    sessionStorage.removeItem('stageGenderLanguageRoute');
+    history.replaceState(null,'',location.pathname+location.search+saved);
+  }
+}
 function toggleLanguage(){
   const language=localStorage.getItem('stageGenderLanguage')||'zh';
   const next=language==='en'?'zh':'en';
+  sessionStorage.setItem('stageGenderLanguageRoute',location.hash||'#home');
   if(next==='en'&&typeof window.google==='undefined'){
     const source=location.origin+location.pathname+location.search+location.hash;
     location.href='https://translate.google.com/translate?sl=zh-CN&tl=en&u='+encodeURIComponent(source);
@@ -47,6 +55,7 @@ function toggleLanguage(){
   location.reload();
 }
 syncLanguageButton();
+restoreLanguageRoute();
 if(languageButton)languageButton.addEventListener('click',toggleLanguage);
 function home(){return `<section class="hero"><div class="eyebrow">Digital Archive · Asian Performance</div><h1>舞台性别<br/>如何被创造与传承</h1><p>从声音、身体、穿戴与行当出发，进入亚洲戏剧中的跨性别角色表演传统。</p></section><section class="stage-grid" aria-label="剧种入口"><a class="stage-card kunqu" href="#kunqu"><span class="stage-index">01</span><span class="stage-name">昆曲</span><span class="stage-kicker">中国 · Kunqu</span></a><a class="stage-card jingju" href="#jingju"><span class="stage-index">02</span><span class="stage-name">京剧</span><span class="stage-kicker">中国 · Jingju</span></a><a class="stage-card kabuki" href="#kabuki"><span class="stage-index">03</span><span class="stage-name">日本歌舞伎</span><span class="stage-kicker">Japan · Kabuki</span></a><a class="stage-card yueju" href="#yueju"><span class="stage-index">04</span><span class="stage-name">越剧</span><span class="stage-kicker">中国 · Yueju</span></a><a class="stage-card khon" href="#khon"><span class="stage-index">05</span><span class="stage-name">孔剧</span><span class="stage-kicker">Thailand · Khon</span></a></section><section class="home-sections"><a class="intro-panel" href="#about"><span class="panel-label">ABOUT US</span><h2>关于我们　→</h2><p>了解 Stage Gender 的项目使命、收录范围、研究方法与版权政策。</p></a><a class="notice-panel" href="#guide"><span class="panel-label">START HERE</span><h2>入门指南　→</h2><p>从一个角色开始，学习怎样观看声音、身体与穿戴，以及表演背后的训练历史。</p></a></section>`}
 function kunqu(){return `<section class="page"><div class="page-heading"><div class="eyebrow">01 · Kunqu</div><h1>昆曲</h1><p>百戏之祖。以婉转细腻的唱腔、优美的身段和程式化表演，展开关于角色、行当与传承的观察。</p></div><div class="content-wrap"><section class="section-block"><h2>A　剧种简介</h2><p>昆曲起源于中国江苏昆山，形成于元末明初，是中国最古老的传统戏曲剧种之一。舞台通常采用写意手法，布景简洁，通过演员的动作和表演营造故事环境。角色分为生、旦、净、末、丑等行当；男性可以扮演女性角色（男旦），女性也可以扮演男性角色（女小生），通过声音、服饰和身段塑造不同性别的人物形象。</p></section><section class="section-block"><h2>B　性别表演时间线</h2><div class="timeline"><div><b>元末明初</b><span>昆山腔形成，逐渐发展出角色扮演传统。</span></div><div><b>明代至清代</b><span>男旦与女小生等跨性别表演形式并存，男旦在戏班中较为普遍。</span></div><div><b>1921</b><span>昆剧传习所成立，推动行当与表演技艺的传承。</span></div><div><b>20世纪50年代至今</b><span>女性演员成为重要力量，女小生表演进一步发展，传统受到重新关注。</span></div></div></section><section class="section-block"><h2>C　角色与选角体系</h2><p>昆曲以行当划分角色，主要包括生、旦、净、末、丑，并不完全依据演员的生理性别选角。男旦和女小生并非独立行当，而是跨性别表演形式。演员通常长期专攻某一行当，但并非终身固定；舞台上的性别形象主要通过唱腔、身段、服饰和程式化动作塑造。</p></section><section class="section-block"><h2>D　代表演员与传承</h2><p>点击人物卡片查看详细介绍。人物图与姓名按昆曲文档原始顺序对应。</p><div class="person-grid">${people.map((p,i)=>`<article class="person-card" data-person="${i}"><img src="${p.img}" alt="${p.name}舞台或肖像照片"/><div class="person-info"><h3>${p.name}</h3><small>${p.role}</small></div></article>`).join('')}</div></section><section class="section-block"><h2>E　跨性别表演技艺</h2><p>男旦与女小生通过声音、身段、服饰和程式化动作塑造不同性别的舞台形象。两者并非简单模仿异性，而是遵循各自行当的表演规范。</p><div class="art-grid"><div class="art-card"><h3>声音与身段</h3><p>从发声位置、音区运用、站姿、步态、转身、眼神与手势，观察角色如何被具体地“做出来”。</p></div><div class="art-card"><h3>训练与传承</h3><p>师徒教学、课程安排、口传经验与反复练习，共同构成技艺在剧团与学校中的延续。</p></div></div></section><section class="section-block"><h2>F　代表作品与角色</h2><div class="art-grid">${plays.map(p=>`<article class="art-card"><h3>${p[0]}</h3><p>${p[1]}</p><p><b>相关角色：</b>${p[2]}</p><p><b>代表演员：</b>${p[3]}</p><a class="watch" href="${p[4]}" target="_blank" rel="noreferrer">打开视频资料 ↗</a></article>`).join('')}</div></section></div></section>`}
