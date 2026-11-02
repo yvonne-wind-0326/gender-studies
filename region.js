@@ -1,37 +1,17 @@
-(function () {
-  const style = document.createElement('style');
-  style.textContent = '.home-sections.region-links{grid-template-columns:repeat(3,1fr)}.china-options{display:flex;flex-wrap:wrap;gap:14px;margin-top:16px}.region-toggle{background:transparent;border:0;border-bottom:1px solid #b29a57;cursor:pointer;font-family:inherit;padding:0 0 3px}.region-card{cursor:pointer}.region-card:hover{transform:translateY(-5px);border-color:var(--gold)}@media(max-width:800px){.home-sections.region-links{grid-template-columns:1fr}}';
-  document.head.appendChild(style);
-
-  function regionPage() {
-    return `<section class="page"><div class="page-heading"><div class="eyebrow">06 · Region</div><h1>地域</h1><p>从地域进入剧种。中国展开三个剧种入口，日本与泰国直达对应传统。</p></div><div class="content-wrap"><div class="art-grid"><article class="art-card"><h3>中国　＋</h3><p>点击展开：昆曲、越剧、京剧。</p><button class="watch region-toggle" type="button">展开中国剧种</button><div class="china-options" hidden><a class="watch" href="#kunqu">昆曲　→</a><a class="watch" href="#yueju">越剧　→</a><a class="watch" href="#jingju">京剧　→</a></div></article><a class="art-card region-card" href="#placeholder-kabuki"><h3>日本　→</h3><p>进入日本歌舞伎具体介绍页面。</p></a><a class="art-card region-card" href="#khon"><h3>泰国　→</h3><p>进入泰国孔剧具体介绍页面。</p></a></div></div></section>`;
-  }
-
-  function addHomeLinks() {
-    const nav = document.querySelector('.top-nav');
-    if (nav && !nav.querySelector('a[href="#region"]')) nav.insertAdjacentHTML('beforeend', '<a href="#region">地域</a>');
-    if (location.hash.slice(1) !== 'home' || document.querySelector('.region-links')) return;
-    const section = document.createElement('section');
-    section.className = 'home-sections region-links';
-    section.innerHTML = '<a class="notice-panel" href="#compare"><span class="panel-label">COMPARE</span><h2>比较　→</h2><p>按角色、技法、训练与历史语境继续比较不同传统。</p></a><a class="notice-panel" href="#system"><span class="panel-label">PERFORMANCE SYSTEM</span><h2>表演体系　→</h2><p>后续补充不同剧种的角色分类与训练结构。</p></a><a class="notice-panel" href="#region"><span class="panel-label">REGION</span><h2>地域　→</h2><p>从中国、日本和泰国进入对应的剧种介绍页面。</p></a>';
-    document.querySelector('#app')?.appendChild(section);
-  }
-
-  function renderRegion() {
-    const app = document.querySelector('#app');
-    if (!app || location.hash.slice(1) !== 'region') return;
-    app.innerHTML = regionPage();
-    const toggle = app.querySelector('.region-toggle');
-    toggle.addEventListener('click', () => {
-      const options = app.querySelector('.china-options');
-      options.hidden = !options.hidden;
-      toggle.textContent = options.hidden ? '展开中国剧种' : '收起中国剧种';
-    });
-    window.scrollTo(0, 0);
-  }
-
-  addHomeLinks();
-  renderRegion();
-  window.addEventListener('hashchange', renderRegion);
-  window.addEventListener('hashchange', () => setTimeout(addHomeLinks, 0));
+(function(){
+  const directRoutes={'京剧 Jingju':'#jingju','昆曲 Kunqu':'#kunqu','越剧 Yueju':'#yueju','歌舞伎 Kabuki':'#kabuki','孔剧 Khon':'#khon'};
+  const palette=['#d9c79a','#b7c2a3','#b9a6a0','#c6a06b','#a6b7b0','#c9b989','#a9b4c0','#c5aa9d','#b0bda7','#c8b6a3','#abb7b4'];
+  const data=()=>window.regionDocument||{countries:[],criteria:[],sources:[],boundary:''};
+  const esc=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const linkify=v=>esc(v).replace(/https?:\/\/[^\s<]+/g,u=>`<a class="region-inline-link" href="${u}" target="_blank" rel="noopener noreferrer">${u}</a>`);
+  const style=document.createElement('style');style.id='regionStyles';style.textContent=`
+  .region-intro{max-width:760px;margin:0 auto 44px;text-align:center;color:var(--muted);line-height:2}.region-criteria{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:56px}.region-criterion{padding:18px 17px;background:#f5f1e7;border:1px solid var(--line);font-size:13px;line-height:1.8;color:#5e584d}.region-criterion b{display:block;color:var(--ink);font-size:17px;font-weight:500;margin-bottom:6px}.region-country-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.region-country{min-height:230px;padding:25px 23px;border:1px solid rgba(76,65,45,.16);box-shadow:0 9px 20px rgba(60,48,30,.08)}.region-country h2{margin:0 0 22px;font-size:28px;font-weight:500;color:#3d382e}.region-genres{display:flex;flex-wrap:wrap;gap:9px}.region-genre{display:inline-flex;align-items:center;border:1px solid rgba(66,57,42,.3);background:rgba(255,255,255,.25);color:#3d382e;padding:9px 11px;font:inherit;font-size:13px;line-height:1.2;text-decoration:none;cursor:pointer}.region-genre:hover{background:rgba(255,255,255,.58);transform:translateY(-2px)}button.region-genre{font-family:inherit}.region-note{margin:46px 0 20px;padding:24px;background:#f5f1e7;border:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.9}.region-sources{margin-top:60px;padding-top:26px;border-top:1px solid var(--line)}.region-sources h2{font-size:22px;font-weight:500;margin:0 0 14px}.region-source-list{display:grid;grid-template-columns:repeat(2,1fr);gap:7px 24px}.region-source-list a{font-size:11px;line-height:1.65;color:#766c5d;text-decoration:none;overflow-wrap:anywhere}.region-source-list a:hover{text-decoration:underline;color:#8a6f34}.region-inline-link{color:#8a6f34}.region-dialog{width:min(680px,calc(100% - 32px));border:0;padding:0;background:#f8f4eb;color:var(--ink);box-shadow:0 24px 70px rgba(40,32,20,.25)}.region-dialog::backdrop{background:rgba(35,30,21,.5)}.region-dialog-inner{padding:34px 38px 38px}.region-dialog h2{margin:0 38px 14px 0;font-size:28px;font-weight:500}.region-dialog p{font-size:14px;line-height:2;color:#5e584d;margin:0 0 18px}.region-dialog-close{position:absolute;right:18px;top:14px;border:0;background:transparent;font-size:28px;color:#5e584d;cursor:pointer}.region-dialog-refs{font-size:11px;color:var(--muted);line-height:1.8}.region-dialog-refs a{color:#8a6f34}.region-dialog .eyebrow{font-size:11px;letter-spacing:.12em;color:#9c8140;margin-bottom:10px}
+  @media(max-width:900px){.region-criteria{grid-template-columns:repeat(2,1fr)}.region-country-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.region-criteria,.region-country-grid,.region-source-list{grid-template-columns:1fr}.region-country{min-height:auto}.region-dialog-inner{padding:28px 24px 30px}}
+  `;document.head.appendChild(style);
+  function openDetail(country,genre){const d=document.querySelector('#regionDialog');const refs=(genre.refs||[]).map(x=>`<a href="#region-sources">${esc(x)}</a>`).join('　');document.querySelector('#regionDialogContent').innerHTML=`<div class="region-dialog-inner"><div class="eyebrow">${esc(country)}</div><h2>${esc(genre.title)}</h2><p>${linkify(genre.description||'该条目将在后续继续补充详细资料。')}</p>${refs?`<div class="region-dialog-refs">引用：${refs}</div>`:''}</div>`;d.showModal()}
+  function regionPage(){const doc=data();const criteria=doc.criteria||[];const countries=doc.countries||[];const sourceHtml=(doc.sources||[]).map(s=>`<a href="${s.url}" target="_blank" rel="noopener noreferrer"><b>${esc(s.id)}</b> ${esc(s.title)} ↗</a>`).join('');const cards=countries.map((country,i)=>`<section class="region-country" style="background:${palette[i%palette.length]}"><h2>${esc(country.name)}</h2><div class="region-genres">${country.genres.map((g,j)=>{const route=directRoutes[g.title];return route?`<a class="region-genre" href="${route}" aria-label="${esc(g.title)}">${esc(g.title)}</a>`:`<button class="region-genre" type="button" data-region-country="${esc(country.name)}" data-region-index="${j}">${esc(g.title)}</button>`}).join('')}</div></section>`).join('');return `<section class="page"><div class="page-heading"><div class="eyebrow">06 · Region</div><h1>地域</h1><p>从国家与地区进入亚洲跨性别角色表演传统。</p></div><div class="content-wrap"><p class="region-intro">文档中的 35 个剧种按国家与地区排列。色块内只保留国家名称与剧种名称；点击剧种名称可进入对应页面或查看该条目的详细说明。</p><section class="region-criteria"><h2 class="sr-only">收录标准</h2>${criteria.map((x,i)=>`<div class="region-criterion"><b>0${i+1}</b>${esc(x)}</div>`).join('')}</section><div class="region-country-grid">${cards}</div><div class="region-note">${linkify(doc.boundary||'')}</div><section class="region-sources" id="region-sources"><h2>引用文献</h2><p class="region-intro" style="text-align:left;margin:0 0 16px;font-size:12px">文献索引按文档中的编号排列，字号缩小显示；点击可打开原始来源。</p><div class="region-source-list">${sourceHtml}</div></section></div></section>`}
+  function renderRegion(){if(location.hash.slice(1)!=='region')return;const app=document.querySelector('#app');app.innerHTML=regionPage();app.querySelectorAll('[data-region-index]').forEach(btn=>btn.addEventListener('click',()=>{const c=data().countries.find(x=>x.name===btn.dataset.regionCountry);if(c)openDetail(c.name,c.genres[Number(btn.dataset.regionIndex)])}));window.scrollTo(0,0)}
+  function addHomeLinks(){const nav=document.querySelector('.top-nav');if(nav&&!nav.querySelector('a[href="#region"]'))nav.insertAdjacentHTML('beforeend','<a href="#region">地域</a>')}
+  addHomeLinks();renderRegion();window.addEventListener('hashchange',renderRegion);window.addEventListener('hashchange',addHomeLinks);
+  const dialog=document.createElement('dialog');dialog.id='regionDialog';dialog.className='region-dialog';dialog.innerHTML='<button class="region-dialog-close" type="button" aria-label="关闭">×</button><div id="regionDialogContent"></div>';document.body.appendChild(dialog);dialog.querySelector('.region-dialog-close').addEventListener('click',()=>dialog.close());
 })();
