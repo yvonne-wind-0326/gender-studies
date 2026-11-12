@@ -50,7 +50,7 @@ function kabuki(){
     if(/^图\d+/.test(t)){body+=`${image}<p class="kabuki-caption">${kabukiLinks(t)}</p>`;return}
     if(t||image)body+=`${image}${t?`<p>${kabukiLinks(t)}</p>`:''}`;
   });
-  return `<section class="page"><div class="page-heading"><div class="eyebrow">03 · Kabuki</div><h1>日本歌舞伎</h1><p>日本古典戏剧中的女形、立役与跨性别角色表演传统。</p></div><article class="kabuki-document">${body}${kabukiLinkCards(doc)}</article></section>`
+  return `<section class="page"><div class="page-heading"><div class="eyebrow">03 · Kabuki</div><h1>日本歌舞伎</h1></div><article class="kabuki-document">${body}${kabukiLinkCards(doc)}</article></section>`
 }
 function bindKabukiPeople(){
   document.querySelectorAll('[data-kabuki-person]').forEach(card=>card.addEventListener('click',()=>{const p=(window.kabukiDocument.people||[])[Number(card.dataset.kabukiPerson)];if(!p)return;document.querySelector('#dialogContent').innerHTML=`<div class="dialog-profile"><img src="${p.img}" alt="${kabukiEscape(p.name)}"/><div><h2>${kabukiEscape(p.name)}</h2><div class="meta">${kabukiEscape(p.roman)}　${kabukiEscape(p.years)}<br/>${kabukiEscape(p.role)}</div><p>${kabukiLinks(p.detail)}</p></div></div>`;document.querySelector('#personDialog').showModal()}))
