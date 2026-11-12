@@ -25,11 +25,17 @@ function kabukiLinkCards(doc){
 function kabukiEmbed(value){
   const match=String(value||'').match(/src="([^"]+)"/);if(!match)return '';
   const src=match[1].startsWith('//')?'https:'+match[1]:match[1];
-  return `<div class="kabuki-embed"><iframe src="${kabukiEscape(src)}" title="歌舞伎视频资料" loading="lazy" allowfullscreen></iframe><a href="${kabukiEscape(src)}" target="_blank" rel="noopener noreferrer">在新窗口打开视频 ↗</a></div>`;
+  return `<div class="kabuki-embed" style="width:100%;box-sizing:border-box"><iframe src="${kabukiEscape(src)}" title="歌舞伎视频资料" loading="lazy" allowfullscreen style="display:block;width:100%;height:520px;border:0"></iframe></div>`;
+}
+function kabukiRenderTable(rows){
+  if(!rows||!rows.length)return '';
+  const cell=(value,tag)=>`<${tag} style="border:1px solid var(--line);padding:12px 14px;vertical-align:top;line-height:1.8">${kabukiLinks(value||'')}</${tag}>`;
+  return `<div class="kabuki-table-wrap" style="width:100%;overflow-x:auto;margin:28px 0 34px"><table style="width:100%;min-width:620px;border-collapse:collapse;background:#f7f4eb"><thead><tr>${rows[0].map(x=>cell(x,'th')).join('')}</tr></thead><tbody>${rows.slice(1).map(row=>`<tr>${row.map(x=>cell(x,'td')).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
 function kabuki(){
   kabukiStyles();const doc=window.kabukiDocument||{paragraphs:[],people:[]};let inPeople=false,inInstitutions=false;let body='';
   (doc.paragraphs||[]).forEach(item=>{
+    if(item.table){body+=kabukiRenderTable(item.table);return}
     const t=item.text||'';const style=item.style||'';const image=kabukiRenderImage(item);
     if(t==='日本歌舞伎'||t.startsWith('3. 剧种专题页')||t.startsWith('主题：'))return;
     if(t.startsWith('D. 代表演员与传承')){inPeople=true;body+=`<section class="section-block kabuki-people-block"><h2>D　代表演员与传承</h2><p class="kabuki-people-intro">代表人物仅显示姓名与对应图片，点击人物卡片查看完整介绍。</p>${kabukiPersonMarkup(doc)}</section>`;return}
