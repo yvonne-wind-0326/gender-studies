@@ -29,5 +29,5 @@
     return `<section class="page system-page"><div class="page-heading"><div class="eyebrow">05 · Performance System</div><h1>${escapeHtml(doc.title)}</h1><p>完整表演体系文档 · 原文段落、图片与链接按附件顺序呈现</p><a class="system-back" href="#system">← 返回表演体系</a></div><article class="system-article">${body}</article></section>`;
   }
   function render() { addStyles(); const route=location.hash.slice(1); if(route==='system')app.innerHTML=landing(); else if(route.startsWith('system-')){const doc=docs.find(d=>slug(d)===route);app.innerHTML=doc?article(doc):landing();} else return; window.scrollTo(0,0); }
-  window.addEventListener('hashchange',render); render();
+  window.addEventListener('hashchange',render); render(); setTimeout(render,0);
 })();
