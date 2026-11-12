@@ -22,14 +22,20 @@ function kabukiLinkCards(doc){
   (doc.paragraphs||[]).forEach(item=>{const matches=(item.text||'').match(/https?:\/\/[^\s，。；）)]+/g)||[];matches.forEach(href=>{if(!seen.has(href)){seen.add(href);const before=(item.text||'').split(href)[0].replace(/[｜:：\s]+$/,'');links.push({href,title:before||'外部资料',host:new URL(href).hostname.replace(/^www\./,'')})}})});
   return `<section class="kabuki-link-section"><h2>文档链接与资料入口</h2><p class="kabuki-people-intro">以下封面均为文档中出现的外部资料入口，点击后在新窗口打开原始页面。</p><div class="kabuki-link-grid">${links.map(x=>{const video=x.href.includes('vimeo.com/');const id=video?x.href.split('/').filter(Boolean).pop():'';const cover=video?`<img src="https://vumbnail.com/${id}.jpg" alt="${kabukiEscape(x.title)}视频封面"/>`:`<div class="kabuki-link-cover">${kabukiEscape(x.host)}</div>`;return `<a class="kabuki-link-card" href="${x.href}" target="_blank" rel="noopener noreferrer">${cover}<div class="kabuki-link-body"><strong>${kabukiEscape(x.title||x.host)}</strong><small>${kabukiEscape(x.host)} ↗</small></div></a>`}).join('')}</div></section>`
 }
+function kabukiEmbed(value){
+  const match=String(value||'').match(/src="([^"]+)"/);if(!match)return '';
+  const src=match[1].startsWith('//')?'https:'+match[1]:match[1];
+  return `<div class="kabuki-embed"><iframe src="${kabukiEscape(src)}" title="歌舞伎视频资料" loading="lazy" allowfullscreen></iframe><a href="${kabukiEscape(src)}" target="_blank" rel="noopener noreferrer">在新窗口打开视频 ↗</a></div>`;
+}
 function kabuki(){
   kabukiStyles();const doc=window.kabukiDocument||{paragraphs:[],people:[]};let inPeople=false,inInstitutions=false;let body='';
   (doc.paragraphs||[]).forEach(item=>{
     const t=item.text||'';const style=item.style||'';const image=kabukiRenderImage(item);
-    if(t.startsWith('3. 剧种专题页')||t.startsWith('主题：'))return;
+    if(t==='日本歌舞伎'||t.startsWith('3. 剧种专题页')||t.startsWith('主题：'))return;
     if(t.startsWith('D. 代表演员与传承')){inPeople=true;body+=`<section class="section-block kabuki-people-block"><h2>D　代表演员与传承</h2><p class="kabuki-people-intro">代表人物仅显示姓名与对应图片，点击人物卡片查看完整介绍。</p>${kabukiPersonMarkup(doc)}</section>`;return}
     if(inPeople&&t.startsWith('三、传承机构群体')){inPeople=false;inInstitutions=true;body+=`<section class="section-block"><h3>${kabukiLinks(t)}</h3>`;return}
     if(inPeople)return;
+    if(t.startsWith('<iframe')){body+=kabukiEmbed(t);return}
     if(t.startsWith('E.')){inInstitutions=false;body+=`<section class="section-block"><h2>${kabukiLinks(t)}</h2>`;return}
     if(t.startsWith('F.')||t.startsWith('G.')||t==='资料使用说明'){body+=`<section class="section-block"><h2>${kabukiLinks(t)}</h2>`;return}
     if(t.startsWith('A.')||t.startsWith('C.')){body+=`<section class="section-block"><h2>${kabukiLinks(t)}</h2>`;return}
