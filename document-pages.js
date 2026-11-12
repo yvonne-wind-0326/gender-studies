@@ -1,5 +1,5 @@
 (function(){
-  const docs=window.performanceDocs||{};
+  const docs=window.performanceDocs||{}; if(window.yuejuOcxDocument) docs.yueju=window.yuejuOcxDocument;
   function esc(v){return String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function linkify(v){return esc(v).replace(/https?:\/\/[^\s<>"'，。；：）)]+/g,u=>`<a class="doc-link" href="${u}" target="_blank" rel="noopener noreferrer">${u}</a>`)}
   function addStyles(){if(document.querySelector('#documentPageStyles'))return;const s=document.createElement('style');s.id='documentPageStyles';s.textContent=`
