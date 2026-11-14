@@ -24,11 +24,23 @@
       if (b.kind === 'heading') {
         if (b.level === 2) section = b.text;
         // Reading/viewing entry names are labels within their formal section.
-        if (route === 'guide' && /初学者推荐(?:阅读|观看)/.test(section) && b.level > 2) return `${image}<p class="restored-label"><strong>${b.html}</strong></p>`;
-        return `${image}<h${b.level}>${b.html}</h${b.level}>`;
+        const guideCategories = {'初学者推荐阅读': ['认识角色分类与表演方法', '走进服装与后台', '了解演员与社会历史'], '初学者推荐观看': ['认识表演要素', '跟随一个人物', '观察制作与转化']};
+        const guideCategory = route === 'guide' && guideCategories[section]?.includes(b.text);
+        if (route === 'guide' && /初学者推荐(?:阅读|观看)/.test(section) && b.level > 2 && !guideCategory) return `${image}<p class="restored-label"><strong>${b.html}</strong></p>`;
+        const comparisonCaption = route === 'compare-08' && section === '配图' && b.level === 4 && ['① 昆曲｜岳美缇饰潘必正', '② 越剧｜徐玉兰与王文娟《红楼梦》'].includes(b.text);
+        const level = guideCategory || comparisonCaption ? 3 : b.level;
+        return `${image}<h${level}>${b.html}</h${level}>`;
       }
       if (!b.text) return image;
       let content = b.html;
+      const systemVideoLimits = {'system-01': 32, 'system-02': 22, 'system-03': 25, 'system-04': 22, 'system-05': 25};
+      const videoNumber = b.text.match(/^V(\d{2})\s/);
+      const systemVideoEntry = section === '视频资料' && b.kind === 'p' && videoNumber && Number(videoNumber[1]) >= 1 && Number(videoNumber[1]) <= (systemVideoLimits[route] || 0);
+      const guideVideoEntry = route === 'guide' && section === '初学者推荐观看' && b.kind === 'p' && ['V01 表演要素入门 四功五法看京剧', 'V02 身体技法分解 女方的基本姿态与行走', 'V03 人物关系观察 玉簪记琴挑', 'V04 后台准备 女方的化妆与穿戴', 'V05 传统技艺的当代使用 Chui Chai', 'V06 档案制作 昆曲游园惊梦音配像'].includes(b.text);
+      if (systemVideoEntry || guideVideoEntry) {
+        const firstBreak = content.indexOf('<br>');
+        content = firstBreak < 0 ? `<strong>${content}</strong>` : `<strong>${content.slice(0, firstBreak)}</strong>${content.slice(firstBreak)}`;
+      }
       if (route === 'guide' && section === '术语表' && b.kind === 'p') {
         const colon = content.indexOf('：');
         if (colon > 0) content = `<strong>${content.slice(0, colon)}</strong>${content.slice(colon)}`;
